@@ -12,9 +12,13 @@ switch (userAge){
 const userCity = prompt("Напишіть Вашу місто!");
 switch(userCity){
     case "Київ":
+        alert(`Ти живеш у столиці Украіни`);
+        break;
     case "Вашингтон":
+        alert(`Ти живеш у столиці США`);
+        break;
     case "Лондон":
-        alert(`Ти живеш у столиці ${userCity}`);
+        alert(`Ти живеш у столиці ВеликобританіЇ`);
         break;
     case null:
         alert("Шкода, що Ви не захотіли ввести свое місто");
