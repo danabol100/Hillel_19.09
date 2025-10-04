@@ -1,9 +1,5 @@
-const numbFromUser = +prompt(
-  "Введите число для возведения в квадрат степени(всех чисел до вашего числа):"
-);
+const numbFromUser = +prompt("Введите число:");
 
-for (let i = 2; i <= 100; i += 1) {
-  if (i <= numbFromUser) {
-    console.log(`Квадрат числа ${i} = ${i * i}`);
-  }
+for (let i = 1; i * i <= numbFromUser; i++) {
+  console.log(i);
 }

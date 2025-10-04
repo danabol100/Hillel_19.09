@@ -3,6 +3,7 @@ let flag = false;
 while (numbFromUser <= 0) {
   numbFromUser = +prompt(" Внимательно! Введите число больше нуля!");
 }
+
 if (numbFromUser === 1) {
   console.log("число 1 не простое");
 } else {
