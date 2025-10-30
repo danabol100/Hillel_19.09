@@ -1,0 +1,46 @@
+.todo {
+  background-color: rgb(189, 168, 209);
+  height: 100vh;
+}
+
+.todo__container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.todo__title {
+  font-size: 40px;
+  text-align: center;
+  padding: 100px 0;
+}
+.todo__wrapper {
+  text-align: center;
+}
+input {
+  padding: 10px 15px;
+  max-width: 200px;
+  width: 100%;
+}
+.btn {
+  max-width: 100px;
+  width: 100%;
+  padding: 10px 15px;
+}
+.btn-delete {
+  padding: 10px;
+  background-color: brown;
+  margin-left: 15px;
+}
+.list {
+  display: flex;
+  justify-content: center;
+
+  align-items: center;
+}
+.li {
+  font-size: 20px;
+  max-width: 200px;
+  padding: 10px 15px;
+  background-color: blanchedalmond;
+  border-radius: 10px;
+  margin: 10px;
+}

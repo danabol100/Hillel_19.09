@@ -1,0 +1,31 @@
+.main {
+}
+.main__container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.main__wrapper {
+  background-color: antiquewhite;
+  height: 100vh;
+  border-radius: 20px;
+}
+.btn__wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 50px;
+  padding-top: 200px;
+}
+.btn__wrapper a {
+  text-align: center;
+  display: inline-block;
+  background-color: rgb(6, 60, 6);
+  max-width: 134px;
+  width: 100%;
+  padding: 10px 15px;
+  transition: 0.1s linear;
+  color: aliceblue;
+}
+a:hover {
+  background-color: green;
+}
