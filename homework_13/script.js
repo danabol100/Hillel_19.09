@@ -10,6 +10,7 @@ const checkValue = (value, regEx, item) => {
     item.style.display = "block";
   }
 };
+
 const validateValue = (event) => {
   event.preventDefault();
 
@@ -26,6 +27,7 @@ const validateValue = (event) => {
     if (index === 3) {
       checkValue(input.value, /.+\@\w+\./, errors[3]);
     }
+    console.log(`${input.name}: ${input.value}`);
   });
 };
 
