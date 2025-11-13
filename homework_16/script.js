@@ -8,46 +8,46 @@ function Student(firstName, lastName, year) {
   this.addMark = function (mark) {
     this.marks.push(mark);
   };
-
-  Student.prototype.getAge = function () {
-    todayYear = new Date().getFullYear();
-    return todayYear - this.year;
-  };
-
-  Student.prototype.setAbsent = function () {
-    if (this.attendance.length >= 25) return console.log("Лимит 25 елементов");
-    this.attendance.push(false);
-  };
-  Student.prototype.setPresent = function () {
-    if (this.attendance.length >= 25) return console.log("Лимит 25 елементов");
-    this.attendance.push(true);
-  };
-  Student.prototype.getAverageMark = function () {
-    if (this.marks.length === 0) return 0;
-    return this.marks.reduce((a, b) => a + b, 0) / this.marks.length;
-  };
-
-  Student.prototype.getAverageAttendance = function () {
-    if (this.attendance.length === 0) return 0;
-    return (
-      this.attendance.filter((a) => a === true).length / this.attendance.length
-    );
-  };
-
-  Student.prototype.getSummary = function () {
-    const averageMarks = this.getAverageMark();
-
-    const averageAttendance = this.getAverageAttendance();
-
-    if (averageMarks > 90 && averageAttendance > 0.9) {
-      return "Молодець!";
-    } else if (averageMarks <= 90 && averageAttendance <= 0.9) {
-      return " Редиска!";
-    } else {
-      return "Добре, але можна краще";
-    }
-  };
 }
+
+Student.prototype.getAge = function () {
+  todayYear = new Date().getFullYear();
+  return todayYear - this.year;
+};
+
+Student.prototype.setAbsent = function () {
+  if (this.attendance.length >= 25) return console.log("Лимит 25 елементов");
+  this.attendance.push(false);
+};
+Student.prototype.setPresent = function () {
+  if (this.attendance.length >= 25) return console.log("Лимит 25 елементов");
+  this.attendance.push(true);
+};
+Student.prototype.getAverageMark = function () {
+  if (this.marks.length === 0) return 0;
+  return this.marks.reduce((a, b) => a + b, 0) / this.marks.length;
+};
+
+Student.prototype.getAverageAttendance = function () {
+  if (this.attendance.length === 0) return 0;
+  return (
+    this.attendance.filter((a) => a === true).length / this.attendance.length
+  );
+};
+
+Student.prototype.getSummary = function () {
+  const averageMarks = this.getAverageMark();
+
+  const averageAttendance = this.getAverageAttendance();
+
+  if (averageMarks > 90 && averageAttendance > 0.9) {
+    return "Молодець!";
+  } else if (averageMarks <= 90 && averageAttendance <= 0.9) {
+    return " Редиска!";
+  } else {
+    return "Добре, але можна краще";
+  }
+};
 
 const student1 = new Student("Кирилл", "Кирилов", 2005);
 student1.addMark(95);
