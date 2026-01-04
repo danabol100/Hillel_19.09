@@ -7,6 +7,7 @@ import Main from "./components/Main";
 import Contact from "./components/Contact";
 import About from "./components/About";
 import Footer from "./components/Footer";
+import NotFound from "./components/NotFound";
 import { dataMenu } from "./data";
 import "./App.css";
 import { ThemeContext, themes } from "./components/themeContext";
@@ -25,6 +26,7 @@ function App() {
           <Header dataMenu={dataMenu} />
           <main>
             <Routes>
+              <Route path="*" element={<NotFound />} />
               <Route path="/" element={<Main />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/about" element={<About />} />
