@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Formik } from "formik";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
+import { validate } from "./helpers/validation";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -14,10 +15,15 @@ function App() {
   const handleDelete = (id) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
+
   return (
     <>
       <h1>ToDo</h1>
-      <Formik initialValues={{ todo: "" }} onSubmit={handleSubmit}>
+      <Formik
+        initialValues={{ todo: "" }}
+        onSubmit={handleSubmit}
+        validate={validate}
+      >
         <TodoForm />
       </Formik>
       <TodoList todos={todos} onDelete={handleDelete} />
