@@ -6,6 +6,10 @@ const Button = () => {
     e.preventDefault();
     dispatch(clearItem());
   };
-  return <button onClick={handleClick}>Clear</button>;
+  return (
+    <button className="btn btn-danger" onClick={handleClick}>
+      Clear
+    </button>
+  );
 };
 export default Button;
