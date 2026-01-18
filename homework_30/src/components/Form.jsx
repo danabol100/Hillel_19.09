@@ -1,17 +1,19 @@
-import { fetchUsers } from "../API/usersApi";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getData } from "../redux/slices/usersSlices";
+
 const Form = () => {
   const [text, setText] = useState("");
-
+  const dispatch = useDispatch();
   const handleClick = (e) => {
     e.preventDefault();
-    fetchUsers(text);
+    dispatch(getData(text));
     setText("");
   };
 
   return (
     <>
-      <form action="submit" className="d-flex mb-2">
+      <form action="submit" onClick={handleClick} className="d-flex mb-2">
         <div className="https">https://www.swapi.tech/api/</div>
         <input
           value={text}
@@ -20,7 +22,7 @@ const Form = () => {
           type="text"
           placeholder="people/1/"
         />
-        <button type="submit" onClick={handleClick} className="btn btn-primary">
+        <button type="submit" className="btn btn-primary">
           request
         </button>
       </form>
