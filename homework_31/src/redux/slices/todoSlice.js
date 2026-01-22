@@ -33,7 +33,21 @@ export const todos = createSlice({
         (item) => item.id === action.payload.id,
       );
       if (index !== -1) {
-        state.items[index].name = action.payload.name;
+        state.items[index] = action.payload;
+      }
+      state.isLoading = false;
+    },
+
+    toggleTodo: (state) => {
+      state.isLoading = true;
+    },
+
+    toggleItem: (state, action) => {
+      const index = state.items.findIndex(
+        (item) => item.id === action.payload.id,
+      );
+      if (index !== -1) {
+        state.items[index] = action.payload;
       }
       state.isLoading = false;
     },
@@ -54,6 +68,8 @@ export const {
   editItem,
   deleteTodo,
   deleteItem,
+  toggleTodo,
+  toggleItem,
   editTodo,
   fetchItem,
   fetchStart,

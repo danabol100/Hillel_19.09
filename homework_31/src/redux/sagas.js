@@ -5,6 +5,8 @@ import {
   addTodo,
   deleteTodo,
   deleteItem,
+  toggleTodo,
+  toggleItem,
   editTodo,
   editItem,
   fetchItem,
@@ -23,6 +25,7 @@ function fetchHelper(url, options) {
 function* fetchTodoSaga() {
   try {
     const todos = yield call(fetchHelper, API.URL_TODO);
+    console.log("sdfsdgfdgdsfgsdfgfdg", todos);
 
     yield put(fetchItem(todos));
   } catch (e) {
@@ -36,8 +39,9 @@ function* addTodoSaga(action) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name: action.payload }),
+      body: JSON.stringify({ name: action.payload, isDone: false }),
     });
+
     yield put(addItem(todo));
   } catch (e) {
     console.log("Error", e);
@@ -61,13 +65,37 @@ function* editTodoSaga(action) {
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: action.payload.name }),
+        body: JSON.stringify({
+          name: action.payload.name,
+          isDone: action.payload.isDone,
+        }),
       },
     );
 
     yield put(editItem(updatedTodo));
   } catch (e) {
     console.error("Error editing todo:", e);
+  }
+}
+
+function* toggleTodoSaga(action) {
+  try {
+    const updatedTodo = yield call(
+      fetchHelper,
+      `${API.URL_TODO}/${action.payload.id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: action.payload.name,
+          isDone: action.payload.isDone,
+        }),
+      },
+    );
+    console.log("Updated todo from server:", updatedTodo);
+    yield put(toggleItem(updatedTodo));
+  } catch (e) {
+    console.error("Error toggle todo:", e);
   }
 }
 
@@ -86,6 +114,9 @@ function* watchDeleteTodo() {
 function* watchEditTodo() {
   yield takeEvery(editTodo.type, editTodoSaga);
 }
+function* watchToggleTodo() {
+  yield takeEvery(toggleTodo.type, toggleTodoSaga);
+}
 
 export default function* rootSaga() {
   yield all([
@@ -93,5 +124,6 @@ export default function* rootSaga() {
     watchAddTodo(),
     watchDeleteTodo(),
     watchEditTodo(),
+    watchToggleTodo(),
   ]);
 }

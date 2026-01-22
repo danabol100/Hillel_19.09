@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import List from "@mui/material/List";
-import ListItems from "./ListItems";
+
+import List1 from "./List1";
 
 const TodoList = () => {
   const items = useSelector((state) => state.todo.items);
@@ -8,7 +9,7 @@ const TodoList = () => {
   return (
     <List sx={{ width: "100%", maxWidth: 360 }}>
       {items.map((todo) => (
-        <ListItems key={todo.id} id={todo.id} name={todo.name} />
+        <List1 key={todo.id} id={todo.id} name={todo.name} />
       ))}
     </List>
   );
