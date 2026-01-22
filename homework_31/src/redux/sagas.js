@@ -25,7 +25,6 @@ function fetchHelper(url, options) {
 function* fetchTodoSaga() {
   try {
     const todos = yield call(fetchHelper, API.URL_TODO);
-    console.log("sdfsdgfdgdsfgsdfgfdg", todos);
 
     yield put(fetchItem(todos));
   } catch (e) {

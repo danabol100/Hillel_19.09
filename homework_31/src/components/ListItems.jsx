@@ -1,37 +1,26 @@
 import ListItem from "@mui/material/ListItem";
 import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { deleteTodo, editTodo, toggleTodo } from "../redux/slices/todoSlice";
 import Checkbox from "@mui/material/Checkbox";
 import Input from "@mui/material/Input";
-
 const ListItems = (props) => {
-  const { id, name, isDone } = props;
-  const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
+  const { id, name, isDone = false } = props;
 
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [text, setText] = useState(name || "");
-  const [checked, setChecked] = useState(isDone || false);
   const inputRef = useRef();
-
-  useEffect(() => {
-    setText(name);
-  }, [name]);
-
-  useEffect(() => {
-    setChecked(isDone);
-  }, [isDone]);
 
   const handleDelete = () => {
     dispatch(deleteTodo(id));
   };
-  const handleChange = (event) => {
-    const newChecked = event.target.checked;
-    setChecked(newChecked);
-    dispatch(toggleTodo({ id, name: text, isDone: newChecked }));
+
+  const handleToggle = () => {
+    dispatch(toggleTodo({ id, name: text, isDone: !isDone }));
   };
+
   const handleEditClick = () => {
     setText(name);
     setIsEditing(true);
@@ -40,7 +29,7 @@ const ListItems = (props) => {
 
   const handleSave = () => {
     if (!text.trim()) return;
-    dispatch(editTodo({ id, name: text, isDone: checked }));
+    dispatch(editTodo({ id, name: text, isDone }));
     setIsEditing(false);
   };
 
@@ -59,11 +48,13 @@ const ListItems = (props) => {
           inputRef={inputRef}
         />
       ) : (
-        <span style={{ textDecoration: checked ? "line-through" : "none" }}>
+        <span style={{ textDecoration: isDone ? "line-through" : "none" }}>
           {text}
         </span>
       )}
-      <Checkbox {...label} onChange={handleChange} checked={checked} />
+
+      <Checkbox checked={isDone} onChange={handleToggle} />
+
       {isEditing ? (
         <Button variant="contained" color="primary" onClick={handleSave}>
           Save
@@ -73,8 +64,9 @@ const ListItems = (props) => {
           Edit
         </Button>
       )}
+
       <Button variant="outlined" color="error" onClick={handleDelete}>
-        delete
+        Delete
       </Button>
     </ListItem>
   );
