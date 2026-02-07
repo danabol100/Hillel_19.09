@@ -86,12 +86,10 @@ function* toggleTodoSaga(action) {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: action.payload.name,
           isDone: action.payload.isDone,
         }),
       },
     );
-    console.log("Updated todo from server:", updatedTodo);
     yield put(toggleItem(updatedTodo));
   } catch (e) {
     console.error("Error toggle todo:", e);

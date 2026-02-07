@@ -68,8 +68,20 @@ h2 {
   width: 95px;
   padding: 10px;
 }
-.todo-item__update {
-  background: #d8f30a;
+.todo-item__edit {
+  background: #f5e617;
+  border: none;
+  cursor: pointer;
+  width: 95px;
+  padding: 10px;
+}
+.todo-item__edit-input {
+  padding: 10px;
+  width: 100%;
+  border: 1px solid;
+}
+.todo-item__save {
+  background: #074bec;
   border: none;
   cursor: pointer;
   width: 95px;

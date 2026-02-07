@@ -1,7 +1,18 @@
 {
   "dependencies": {
-    "cors": "^2.8.5",
+    "cors": "^2.8.6",
     "express": "^5.2.1",
-    "mongoose": "^9.0.1"
-  }
+    "mongoose": "^9.1.6",
+    "nodemon": "^3.1.11"
+  },
+  "name": "homework_23",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "start:dev": "nodemon server/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
