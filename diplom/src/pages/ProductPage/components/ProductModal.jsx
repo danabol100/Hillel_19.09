@@ -42,7 +42,8 @@ const ProductModal = ({
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     const submitForm = {
       ...form,
       quantity: form.quantity || 0,
@@ -61,61 +62,69 @@ const ProductModal = ({
       disableRestoreFocus
     >
       <DialogTitle>{title}</DialogTitle>
-      <DialogContent sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        <TextField
-          label="Category"
-          name="category"
-          value={form.category}
-          onChange={handleChange}
-          fullWidth
-        />
-        <TextField
-          label="Name"
-          name="name"
-          value={form.name}
-          onChange={handleChange}
-          fullWidth
-        />
-        <TextField
-          label="Quantity"
-          name="quantity"
-          type="number"
-          value={form.quantity}
-          onChange={handleChange}
-          fullWidth
-          required
-        />
-        <TextField
-          label="Price"
-          name="price"
-          type="number"
-          value={form.price}
-          onChange={handleChange}
-          fullWidth
-        />
-        <TextField
-          label="Photo URL"
-          name="photo"
-          value={form.photo}
-          onChange={handleChange}
-          fullWidth
-        />
-        <TextField
-          label="Description"
-          name="description"
-          value={form.description}
-          onChange={handleChange}
-          fullWidth
-          multiline
-          rows={3}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
-        <Button variant="contained" color="success" onClick={handleSubmit}>
-          Submit
-        </Button>
-      </DialogActions>
+      <form onSubmit={handleSubmit}>
+        <DialogContent
+          sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+        >
+          <TextField
+            label="Category"
+            name="category"
+            value={form.category}
+            onChange={handleChange}
+            fullWidth
+            required
+          />
+          <TextField
+            label="Name"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            fullWidth
+            required
+          />
+          <TextField
+            label="Quantity"
+            name="quantity"
+            type="number"
+            value={form.quantity}
+            onChange={handleChange}
+            fullWidth
+            required
+          />
+          <TextField
+            label="Price"
+            name="price"
+            type="number"
+            value={form.price}
+            onChange={handleChange}
+            fullWidth
+            required
+          />
+          <TextField
+            label="Photo URL"
+            name="photo"
+            value={form.photo}
+            onChange={handleChange}
+            fullWidth
+          />
+          <TextField
+            label="Description"
+            name="description"
+            value={form.description}
+            onChange={handleChange}
+            fullWidth
+            multiline
+            rows={3}
+          />
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button variant="contained" color="success" type="submit">
+            Submit
+          </Button>
+        </DialogActions>
+      </form>
     </Dialog>
   );
 };

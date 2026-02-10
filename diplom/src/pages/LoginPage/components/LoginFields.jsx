@@ -13,14 +13,14 @@ const LoginFields = ({ values, errors, touched, handleChange, handleBlur }) => {
   return (
     <>
       <TextField
-        name="username"
-        label="Username"
+        name="login"
+        label="Login"
         fullWidth
-        value={values.username}
+        value={values.login}
         onChange={handleChange}
         onBlur={handleBlur}
-        error={touched.username && Boolean(errors.username)}
-        helperText={touched.username && errors.username}
+        error={touched.login && Boolean(errors.login)}
+        helperText={touched.login && errors.login}
       />
 
       <TextField

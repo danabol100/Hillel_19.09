@@ -1,49 +1,89 @@
-import { Box, Button } from "@mui/material";
+import { TextField, Button, Box } from "@mui/material";
 import { Formik } from "formik";
-import { loginValidationSchema } from "../../../helpers/validation";
-import { formStyles } from "../styles";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getProfile } from "../../../api/api";
 import Logo from "./Logo";
-import LoginFields from "./LoginFields";
-import credentials from "../constants";
-
-const checkLogin = (values) => {
-  return (
-    values.username === credentials.username &&
-    values.password === credentials.password
-  );
-};
+import { login } from "../../../api/api";
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const [checkingAuth, setCheckingAuth] = useState(true);
+
+  useEffect(() => {
+    getProfile()
+      .then(() => {
+        navigate("/products");
+      })
+      .catch(() => {
+        setCheckingAuth(false);
+      });
+  }, [navigate]);
+
+  if (checkingAuth) {
+    return null;
+  }
 
   return (
     <Formik
-      initialValues={{ username: "admin", password: "1234" }}
-      validationSchema={loginValidationSchema}
-      onSubmit={(values, { setSubmitting, setErrors }) => {
-        if (checkLogin(values)) {
-          document.activeElement?.blur();
-          navigate("/products");
-        } else {
-          setErrors({ password: "Invalid username or password" });
+      initialValues={{ login: "", password: "" }}
+      onSubmit={async (values, { setSubmitting, setErrors }) => {
+        console.log("FORM SUBMITTED", values);
+
+        try {
+          const data = await login(values.login, values.password);
+          console.log("Server response:", data);
+
+          if (data.success) {
+            document.activeElement.blur();
+            navigate("/products");
+          } else {
+            setErrors({ submit: data.message });
+          }
+        } catch (error) {
+          setErrors({ submit: "server error" });
+          console.error("Error:", error);
+        } finally {
+          setSubmitting(false);
         }
-        setSubmitting(false);
       }}
     >
-      {(formik) => (
-        <Box
-          component="form"
-          onSubmit={formik.handleSubmit}
-          sx={formStyles.root}
+      {({ handleSubmit, handleChange, values, errors, touched }) => (
+        <form
+          onSubmit={handleSubmit}
+          style={{ maxWidth: 400, margin: "0 auto" }}
         >
           <Logo />
-          <LoginFields {...formik} />
 
-          <Button type="submit" variant="contained" color="success">
+          <Box mb={2}>
+            <TextField
+              name="login"
+              label="Login"
+              fullWidth
+              value={values.login}
+              onChange={handleChange}
+              error={touched.login && Boolean(errors.login)}
+              helperText={touched.login && errors.login}
+            />
+          </Box>
+
+          <Box mb={2}>
+            <TextField
+              name="password"
+              label="Password"
+              type="password"
+              fullWidth
+              value={values.password}
+              onChange={handleChange}
+              error={touched.password && Boolean(errors.password)}
+              helperText={touched.password && errors.password}
+            />
+          </Box>
+
+          <Button type="submit" variant="contained" color="success" fullWidth>
             Login
           </Button>
-        </Box>
+        </form>
       )}
     </Formik>
   );
